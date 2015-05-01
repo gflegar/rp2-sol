@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Koordinate misa</title>
+    </head>
+    <body>
+
+        <p id="text"> Mouse position: </p>
+        <script type="text/javascript">
+            var txt = document.getElementById("text")
+            document.addEventListener("click", function(e) {
+                var button = ["left", "middle", "right"]
+                txt.innerHTML = "Mouse position: (" + e.clientX + ", " + e.clientY + "), " + button[e.button] + " button clicked"
+            })
+            document.addEventListener("mousemove", function(e) {
+                txt.innerHTML = "Mouse position: (" + e.clientX + ", " + e.clientY + ")"
+            })
+        </script>
+    </body>
+</html>
+

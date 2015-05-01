@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Tablica Mnozenja</title>
+    <script type="text/javascript">
+    function writeTable(n) {
+        document.write("<table border=\"1\"><tr><td></td>");
+        for (var i = 1; i <= n; ++i) {
+            document.write("<th>" + i + "</th>");
+        }
+        document.write("</tr>");
+        for (var i = 1; i <= n; ++i) {
+            document.write("<tr><th>" + i + "</th>");
+            for (var j = 1; j <= n; ++j) {
+                document.write("<td>" + (i * j) + "</td>");
+            }
+            document.write("</tr>");
+        }
+        document.write("</table>");
+    }
+    </script>
+    </head>
+    <body>
+        <script type="text/javascript">
+            var n;
+            do {
+                n = parseInt(prompt("Daj mi broj: ", 5));
+            } while (isNaN(n));
+
+            writeTable(n);
+
+        </script>
+    </body>
+</html>
+

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="hr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Vjesalo</title>
+    <body>
+        <div id="word"></div>
+        <div id="parts"></div>
+        <script type="text/javascript">
+            var word;
+            var guessed;
+            var wordContainer;
+            var partsContainer;
+            var parts;
+            var tries;
+
+            function drawState() {
+                var drawnWord = "";
+                var drawnParts = "";
+                var i;
+                for (i = 0; i < word.length; ++i) {
+                    if (guessed[i]) {
+                        drawnWord += word[i];
+                    } else {
+                        drawnWord += " ";
+                    }
+                }
+                for (i = 0; i < tries; ++i) {
+                    drawnParts += "<div>" + parts[i] + "</div>";
+                }
+                wordContainer.innerHTML = drawnWord;
+                partsContainer.innerHTML = drawnParts;
+            }
+            
+            function update(letter) {
+                var has = False;
+                var i;
+                for (i = 0; i < word.length; ++i) {
+                    if (word[i] === letter) {
+                        if (guessed[i]) {
+                            return;
+                        } else {
+                            guessed[i] = True;
+                            has = True;
+                        }
+                    }
+                }
+            }
+
+            window.addEventListner("load", function() {
+                word = "javascript";
+                guessed = new Array(word.length);
+                wordContainer = document.getElementById("word");
+                partsContainer = document.getElementById("parts");
+                parts = ["glava", "tijelo", "lijeva ruka", 
+                         "desna ruka", "lijeva noga", "desna noga"];
+                tries = 0;
+                var i;
+                for (i = 0; i < word.length; ++i) {
+                    guessed[i] = False;
+                }
+            });
+            
+        </script>
+    </body>
+</html>
+

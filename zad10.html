@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html lang="hr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Raznobojni paragrafi</title>
+    <body>
+        <p>Danasnji datum: <span id="date"></span></p>
+        <p>Ovo je prvi paragraf.</p>
+        <p>Ovo je drugi paragraf.</p>
+        <p>Ovo je treci paragraf.</p>
+        <p>Ovo je cetvrti paragraf.</p>
+        <p>Ovo je peti paragraf.</p>
+        <script type="text/javascript">
+            var date = document.getElementById("date")
+            date.innerHTML = new Date().toLocaleDateString()
+            var paragraphs = document.body.getElementsByTagName("p")
+            for (var i = 1; i < paragraphs.length; ++i) {
+                paragraphs[i].style.color = i % 2 ? "red" : "green"
+            }
+        </script>
+    </body>
+    
+</html>
+

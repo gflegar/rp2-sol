@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Zajednicki znakovi u stringu</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            var str1 = "test1"
+            var str2 = "tast2i1"
+            var isect = new Object()
+            for (var i = 0; i < str1.length; ++i) {
+                if (str2.indexOf(str1[i]) != -1) {
+                    isect[str1[i]] = true
+                }
+            }
+
+            for (var chr in isect) {
+                document.write(chr)
+            }
+        </script>
+    </body>
+</html>
+

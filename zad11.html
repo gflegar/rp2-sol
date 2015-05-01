@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="hr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Povecavanje slike</title>
+    <body>
+        <form>
+            <button id="larger" type="button">Povecaj</button>
+            <button id="smaller" type="button">Smanji</button>
+        </form> 
+        <img id="image" src="slika.png" alt="Ovdje bi trebala biti slika">
+        <script type="text/javascript">
+            var origWidth;
+            var origHeight;
+            var currWidth;
+            var currHeight;
+            var image = document.getElementById("image");
+            var largerButton = document.getElementById("larger");
+            var smallerButton = document.getElementById("smaller");
+
+            window.addEventListener("load", function() {
+                console.log("Window loaded")
+                currWidth = origWidth = image.scrollWidth;
+                currHeight = origHeight = image.scrollHeight;
+            });
+
+            largerButton.addEventListener("click", function() {
+                if (currWidth * 1.1 <= 2 * origWidth) {
+                    currWidth *= 1.1;
+                    currHeight *= 1.1;
+                    image.style.width = currWidth + "px"
+                    image.style.height = currHeight + "px"
+                }
+            });
+            smallerButton.addEventListener("click", function() {
+                if (currWidth * 0.9 >= origWidth * 0.1) {
+                    currWidth *= 0.9;
+                    currHeight *= 0.9;
+                    image.style.width = currWidth + "px"
+                    image.style.height = currHeight + "px"
+                }
+            });
+        </script>
+    </body>
+</html>
+

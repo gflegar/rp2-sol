@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+
+<html>
+    <head>
+        <title>Uhvati gumb</title>
+        <style>
+            #button {
+                position: absolute;
+            }
+        </style>
+    </head>
+    <body>
+        <button type="button" id="button">Click me!</button>
+
+        <script type="text/javascript">
+            var button = document.getElementById("button");
+
+            function relocate() {
+                button.style.left = Math.random() * (window.innerWidth - button.offsetWidth) + "px"
+                button.style.top = Math.random() * (window.innerHeight - button.offsetHeight) + "px"
+            }
+
+            button.addEventListener("mouseover", relocate);
+            relocate();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html lang="hr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Provjera datuma</title>
+        <style>
+            input:valid {
+                background-color: #C0FFC0;
+            }
+            input:invalid {
+                background-color: #FFC0C0;
+            }
+        </style>
+    </head>
+    <body>
+    <form>
+        <input type="text" id="textbox" name="textbox">
+    </form>
+    <script type="text/javascript">
+        var textbox = document.getElementById("textbox")
+        textbox.addEventListener("input", function() {
+            var valid = false
+            var matches = /(\d{2})\.(\d{2})\.(\d{4})/.exec(textbox.value)
+            if (matches === null) {
+                valud = false
+            } else {
+                var day = Number(matches[1])
+                var month = Number(matches[2])
+                var year = Number(matches[3])
+                var noDays = [[31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+                              [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]]
+                var isStepYear = year % 400 == 0 || (year % 100 != 0 && year % 4 == 0) ? 1 : 0
+                valid = 1 <= month && month <= 12 && 1 <= day && day <= noDays[isStepYear][month - 1]
+            }
+            textbox.setCustomValidity(valid ? "" : "Datum nije OK")
+        })
+    </script>
+    </body>
+</html>
+
