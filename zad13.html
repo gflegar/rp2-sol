@@ -3,9 +3,22 @@
 <html lang="hr">
     <head>
         <meta charset="UTF-8">
-        <title>Povecavanje slike</title>
+        <title>Velicina fonta</title>
     <body>
-	<h1> U izradi </h1>
+        <button id="button" type="button">Klikni me!</button>
+        <script type="text/javascript">
+var button;
+window.addEventListener("load", function() {
+    button = document.getElementById("button");
+    button.style.fontSize = "medium";
+    button.addEventListener("mousedown", function() {
+        button.style.fontSize = "large";
+    });
+    button.addEventListener("mouseup", function() {
+        button.style.fontSize = "medium";
+    });
+});
+        </script>
     </body>
 </html>
 
