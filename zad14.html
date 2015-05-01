@@ -3,9 +3,22 @@
 <html lang="hr">
     <head>
         <meta charset="UTF-8">
-        <title>Povecavanje slike</title>
+        <title>Zamjena slike</title>
+    </head>
     <body>
-	<h1> U izradi </h1>
+        <img id="image" src="slika.png" alt="Linux pingvin">
+        <script type="text/javascript">
+var image;
+window.addEventListener("load", function() {
+    image = document.getElementById("image");
+    image.addEventListener("mouseover", function() {
+        image.src = "slika2.png";
+    });
+    image.addEventListener("mouseout", function() {
+        image.src = "slika.png";
+    });
+});
+        </script>
     </body>
 </html>
 
