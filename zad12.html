@@ -23,7 +23,7 @@
                     if (guessed[i]) {
                         drawnWord += word[i];
                     } else {
-                        drawnWord += " ";
+                        drawnWord += "_";
                     }
                 }
                 for (i = 0; i < tries; ++i) {
@@ -32,36 +32,63 @@
                 wordContainer.innerHTML = drawnWord;
                 partsContainer.innerHTML = drawnParts;
             }
-            
+
             function update(letter) {
-                var has = False;
+                var has = false;
                 var i;
                 for (i = 0; i < word.length; ++i) {
-                    if (word[i] === letter) {
+                    if (word[i].toUpperCase() === letter) {
                         if (guessed[i]) {
                             return;
                         } else {
-                            guessed[i] = True;
-                            has = True;
+                            guessed[i] = true;
+                            has = true;
                         }
                     }
                 }
+                if (!has) {
+                    ++tries;
+                }
             }
 
-            window.addEventListner("load", function() {
+            window.addEventListener("load", function() {
                 word = "javascript";
                 guessed = new Array(word.length);
                 wordContainer = document.getElementById("word");
                 partsContainer = document.getElementById("parts");
-                parts = ["glava", "tijelo", "lijeva ruka", 
+                parts = ["glava", "tijelo", "lijeva ruka",
                          "desna ruka", "lijeva noga", "desna noga"];
                 tries = 0;
                 var i;
                 for (i = 0; i < word.length; ++i) {
-                    guessed[i] = False;
+                    guessed[i] = false;
+                }
+                drawState();
+            });
+
+            window.addEventListener("keydown", function(event) {
+                if (event.keyCode >= 65 && event.keyCode <= 89) {
+                    update(String.fromCharCode(event.keyCode));
+                    drawState();
+                    if (tries >= parts.length) {
+                        alert("Izgubili ste.\nPokusajte ponovno.");
+                        tries = 0;
+                        guessed = new Array(word.length);
+                    }
+                    var all = true;
+                    var i;
+                    for (i = 0; i < guessed.length; ++i) {
+                        all =  all && guessed[i];
+                    }
+                    if (all) {
+                        alert("Cestitamo, pobijedili ste!\nKrivih pokusaja: " + tries);
+                        tries = 0;
+                        guessed = new Array(word.length);
+                    }
+                    drawState();
                 }
             });
-            
+
         </script>
     </body>
 </html>
