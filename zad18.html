@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="hr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Local storage 1</title>
+        <script>
+var Osoba = function(ime, prezime, godina, spol) {
+    this.ime = ime;
+    this.prezime = prezime;
+    this.godina = godina;
+    this.spol = spol;
+};
+
+Osoba.prototype = {
+    constructor: Osoba,
+    getIme: function() { return this.ime; },
+    setIme: function(ime) { this.ime = ime; },
+    getPrezime: function() { return this.prezime; },
+    setPrezime: function(prezime) { this.prezime = prezime; },
+    getGodina: function() { return this.godina; },
+    setGodina: function(godina) { this.godina = godina; },
+    getSpol: function() { return this.spol; },
+    setSpol: function(spol) {this.spol = spol; },
+    toString: function() { return JSON.stringify(this); }
+};
+
+Osoba.fromString = function(serialized) {
+    var obj = JSON.parse(serialized);
+    var osoba = new Osoba();
+    for (property in obj) {
+        osoba[property] = obj[property];
+    }
+    return osoba;
+};
+        </script>
+    </head>
+    <body>
+        <script>
+var mirko = new Osoba("Mirko", "Mirkovic", 35, "m");
+var oldMirko = localStorage.getItem("mirko");
+
+if (oldMirko !== null) {
+    oldMirko = Osoba.fromString(oldMirko);
+    document.write("U memoriji je vec spremljen Mirko: <pre>" +
+                   oldMirko.toString() + "</pre>");
+}
+
+document.write("Spremam " + ((oldMirko !== null) ? "novog " : "") + "Mirka u memoriju: <pre>" +
+                mirko.toString() + "</pre>");
+localStorage.setItem("mirko", mirko.toString());
+        </script>
+    </body>
+</html>
+
