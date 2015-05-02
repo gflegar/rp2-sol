@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html lang="hr">
+    <head>
+        <meta charset="UTF-8">
+        <title>OOP</title>
+    </head>
+    <body>
+        <script>
+var Osoba = function(ime, prezime, godina, spol) {
+    this.ime = ime;
+    this.prezime = prezime;
+    this.godina = godina;
+    this.spol = spol;
+};
+
+Osoba.prototype = {
+    constructor: Osoba,
+    getIme: function() { return this.ime; },
+    setIme: function(ime) { this.ime = ime; },
+    getPrezime: function() { return this.prezime; },
+    setPrezime: function(prezime) { this.prezime = prezime; },
+    getGodina: function() { return this.godina; },
+    setGodina: function(godina) { this.godina = godina; },
+    getSpol: function() { return this.spol; },
+    setSpol: function(spol) {this.spol = spol; }
+};
+
+var mirko = new Osoba("Mirko", "Mirkovic", 29, "m");
+var ana = new Osoba("Ana", "Anic", 21, "z");
+
+var osobe = [mirko, ana];
+var i;
+
+for (i = 0; i < osobe.length; ++i) {
+    document.write("<dl><dt>Ime:<dd>" + osobe[i].getIme() +
+                   "<dt>Prezime:<dd>" + osobe[i].getPrezime() +
+                   "<dt>Godina:<dd>" + osobe[i].getGodina() +
+                   "<dt>Spol:<dd>" + osobe[i].getSpol() +"</dl>");
+}
+        </script>
+    </body>
+</html>
+
