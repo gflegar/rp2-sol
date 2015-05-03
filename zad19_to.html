@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html lang="hr">
+    <head>
+        <meta charset="UTF-8">
+        <title>zad19_to iframe</title>
+   </head>
+    <body>
+    <p>Unešena vrijednost: <pre id="container"></pre></p>
+    <script>
+window.addEventListener("load", function() {
+    var container = document.getElementById("container");
+    window.addEventListener("storage", function(e) {
+        if (e.storageArea === sessionStorage && e.key === "user_input") {
+            container.innerHTML = e.newValue;
+        }
+    });
+});
+    </script>
+    </body>
+</html>
+
