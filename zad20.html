@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html lang="hr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Local storage demo - 2</title>
+        <style>
+ul {
+    float: left;
+}
+        </style>
+   </head>
+    <body>
+    <input id="name" type="text">
+    <input id="lastname" type="text">
+    <button id="submmit" type="submmit">Spremi</button>
+    <div id="container"></div>
+    <script>
+
+function addName(name, lastName) {
+    var names = JSON.parse(localStorage.getItem("names"));
+    var found = false;
+    var i;
+    for (i = 0; i < names.length; ++i) {
+        if (names[i].lastName == lastName) {
+            found = true;
+            names = [];
+            break;
+        }
+        if (names[i].name == name) {
+            names.splice(i, 1);
+        }
+    }
+    if (!found) {
+        names.push({name: name, lastName: lastName});
+    }
+
+    localStorage.setItem("names", JSON.stringify(names));
+}
+
+function writeNames(container) {
+    var names = JSON.parse(localStorage.getItem("names"));
+    var nameList = "<ul>";
+    var lastNameList = "<ul>";
+    var i;
+    for (i = 0; i < names.length; ++i) {
+        nameList += "<li>" + names[i].name;
+        lastNameList += "<li>" + names[i].lastName;
+    }
+    container.innerHTML = nameList + "</ul>" + lastNameList + "</ul>";
+}
+
+function main() {
+    var nameInput = document.getElementById("name");
+    var lastNameInput = document.getElementById("lastname");
+    var submmitButton = document.getElementById("submmit");
+    var container = document.getElementById("container");
+
+    if (localStorage.getItem("names") === null) {
+        localStorage.setItem("names", JSON.stringify([]));
+    }
+
+    submmitButton.addEventListener("click", function() {
+        addName(nameInput.value, lastNameInput.value);
+        writeNames(container);
+    }, false);
+
+    writeNames(container);
+};
+window.addEventListener("load", main, false);
+
+    </script>
+    </body>
+</html>
+
