@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html lang="hr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Zadaca 2</title>
+        <style>
+section, ul {
+    float: left;
+    margin: 10px;
+}
+.ignore {
+    float: none;
+    clear: both;
+}
+pre {
+    border: 1px solid black;
+    padding: 10px;
+    min-height: 100px;
+}
+        </style>
+   </head>
+    <body>
+        <section>
+            <h2>Prvi odjeljak</h2>
+            <p>paragraf 1: <q>Ana voli Milovana</q>, <var>sin cos tan</var>
+            <p>paragraf 2
+            <p>paragraf 3: <span>dijete paragrafa 3</span>
+            <p>paragraf 4
+            <p>paragraf 5
+        </section>
+        <section>
+            <h2>Drugi odjeljak</h2>
+            <p> paragraf ... <span> koji ima dijete</span>
+            <p> trece dijete drugog elementa
+            <p> cetvrto dijete drugog elementa
+            <p> peto dijete drugog elementa
+        </section>
+        <ul>
+            <li>Treci odjeljak
+            <li> koji je u stvari lista
+            <li> spremi: <kbd>CTRL + S</kbd>
+            <li> kopiraj: <kbd>CTRL + C</kbd>
+            <li> zalijepi: <kbd>CTRL + V</kbd>
+            <li> izrezi: <kbd> CTRL + X</kbd>
+        </ul>
+        <section>
+            <h2>Cetvrti odjeljak</h2>
+            <p> i ovdje mora biti paragraf <span> koji ima dijete </span> </p>
+            <h3>H3 header</h3>
+            <h4>H4 header</h4>
+            <h5>H5 header</h5>
+            <h6>H6 header</h6>
+        </section>
+        <section>
+            <p>Peti odjeljak koji nema header <em>ali zato ima dijete</em>
+            <p> i jos jedan paragraf u kojemu je dijete: <q>repetitio est mater studiorum</q>
+            <p> trece dijete petog elementa
+            <p> cetvrto dijete petog elementa
+            <p> peto dijete petog elementa
+        </section>
+        <section class="ignore">
+            <button id="reverse" type="button">Okreni</button>
+            <h3>XML struktura:</h3>
+            <pre><code id="xml_container"></code></pre>
+        </section>
+        <script class="ignore">
+
+function changeParentBoldness(e) {
+    e.stopPropagation();
+    var parentNode = e.target.parentNode;
+    if (parentNode.style.fontWeight == "bold") {
+        parentNode.style.fontWeight = "normal";
+    } else {
+        parentNode.style.fontWeight = "bold";
+    }
+}
+
+function createXmlStructure(node, depth) {
+    if (depth === undefined) {
+        depth = "";
+    }
+    if (node.nodeType == Node.TEXT_NODE) {
+        var text = node.nodeValue.trim();
+        return text ? depth + node.nodeValue.trim() + "\n" : "";
+    }
+    var child;
+    var structure = depth + "&lt;" + node.nodeName;
+    var i;
+    for (i = 0; i < node.attributes.length; ++i) {
+        structure += " " + node.attributes[i].name + '="' +
+                     node.attributes[i].value + '"';
+    }
+    structure += "&gt;\n";
+    for (child = node.firstChild; child !== null; child = child.nextSibling) {
+        structure += depth + createXmlStructure(child, depth + '  ');
+    }
+    return structure + depth + "&lt/" + node.nodeName + "&gt;\n";
+}
+
+function showXmlStructure(e) {
+    e.stopPropagation();
+    document.getElementById("xml_container").innerHTML =
+        createXmlStructure(e.target);
+}
+
+function uglify() {
+    var elements = document.body.children;
+    var grandchildren = [];
+    var elem, child;
+    var i, j, k;
+    for (i = 0; i < elements.length; ++i) {
+        elem = elements[i];
+        if (elem.className == "ignore") {
+            continue;
+        }
+        for (j = 0; j < elem.children.length; ++j) {
+            child = elem.children[j];
+            child.addEventListener("click", showXmlStructure, false);
+            switch (j) {
+            case 0:
+                child.style.textDecoration = "underline";
+                child.style.fontSize = "150%";
+                break;
+            case 1:
+                child.style.fontWeight = "bold";
+                child.style.color = "blue";
+                break;
+            default:
+                child.style.fontStyle = "italic";
+            }
+            grandchildren = grandchildren.concat(
+                Array.prototype.slice.call(child.children));
+        }
+    }
+    return grandchildren;
+}
+
+
+function main() {
+    var grandchildren = uglify();
+    var reverseButton = document.getElementById("reverse");
+    var i;
+    reverseButton.addEventListener("click", function() {
+        var i;
+        var text;
+        for (i = 0; i < grandchildren.length; ++i) {
+            text = grandchildren[i].innerHTML.split(" ");
+            text.reverse();
+            grandchildren[i].innerHTML = text.join(" ");
+        }
+    }, false);
+    for (i = 0; i < grandchildren.length; ++i) {
+        grandchildren[i].addEventListener("click", changeParentBoldness,
+                                          false);
+    }
+};
+window.addEventListener("load", main, false);
+
+        </script>
+    </body>
+</html>
+
