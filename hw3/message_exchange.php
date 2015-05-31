@@ -333,6 +333,7 @@ class User extends FileModel {
      */
     public function getData($username) {
         $handle = $this->open('r');
+        flock($handle, LOCK_SH);
         $returnData = False;
         while (($data = fgetcsv($handle, 0, "\t")) !== False) {
             if ($data === Null) {
@@ -347,6 +348,7 @@ class User extends FileModel {
             }
         }
 
+        flock($handle, LOCK_UN);
         $this->close($handle);
 
         return $returnData;
@@ -362,8 +364,12 @@ class User extends FileModel {
 
         $handle = $this->open('a');
 
+        flock($handle, LOCK_EX);
+
         fputcsv($handle, [$username, md5($password)], "\t") or
             $this->raiseError($PHP_ERRMSG);
+
+        flock($handle, LOCK_UN);
 
         $this->close($handle);
 
