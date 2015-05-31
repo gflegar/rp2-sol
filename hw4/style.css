@@ -1,0 +1,35 @@
+form, .flash {
+    width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    border: 1px solid black;
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+.message {
+    background: #d0ffd0;
+}
+
+.error {
+    background: #ffd0d0;
+}
+
+div {
+    margin: 10px;
+    overflow: hidden;
+}
+
+label {
+    display: block;
+    overflow: hidden;
+}
+
+input {
+    float: right;
+}
+
+.right {
+    float: right;
+}
+
